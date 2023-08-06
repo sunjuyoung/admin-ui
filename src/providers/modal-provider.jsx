@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import React from "react";
+import StoreModal from "../components/modals/store-modal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -11,7 +10,11 @@ const ModalProvider = () => {
   if (!isMounted) {
     return null;
   }
-  return <div>modal-provider</div>;
+  return (
+    <>
+      <StoreModal />
+    </>
+  );
 };
 
 export default ModalProvider;

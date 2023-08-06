@@ -4,11 +4,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog.jsx";
+} from "./dialog.jsx";
 
 const Modal = ({ title, description, isOpen, onClose, children }) => {
   const onChange = (open) => {
-    if (open) {
+    if (!open) {
       onClose();
     }
   };

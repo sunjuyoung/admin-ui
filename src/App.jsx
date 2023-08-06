@@ -1,19 +1,19 @@
-import { useState } from "react";
 import "./App.css";
-import { Button } from "./components/ui/button";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Footer from "./components/footer";
 import Header from "./components/Header";
+import ModalProvider from "./providers/modal-provider";
 
 function App() {
-  let Layout = () => {
+  const Layout = () => {
     return (
-      <>
+      <div className="app">
         <Header />
+        <ModalProvider />
         <Outlet />
         <Footer />
-      </>
+      </div>
     );
   };
   const router = createBrowserRouter([
