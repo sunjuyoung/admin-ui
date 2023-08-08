@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Footer from "./components/footer";
 import Header from "./components/Header";
 import ModalProvider from "./providers/modal-provider";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   const Layout = () => {
@@ -12,7 +14,7 @@ function App() {
         <Header />
         <ModalProvider />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   };
@@ -24,6 +26,14 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/signup",
+          element: <Signup />,
         },
       ],
     },

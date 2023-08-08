@@ -61,9 +61,9 @@ const StoreModal = () => {
               />
               <div className="flex items-center justify-end w-full pt-6 space-x-2">
                 <Button variant="outline" onClick={storeModal.onClose}>
-                  Cancel
+                  취소
                 </Button>
-                <Button type="submit">Continue</Button>
+                <Button type="submit">다음</Button>
               </div>
             </form>
           </Form>
