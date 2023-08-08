@@ -15,8 +15,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+
   return (
     <div className="flex justify-center items-center">
       <Card className="w-[350px]">
