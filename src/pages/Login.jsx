@@ -1,4 +1,8 @@
 import { Button } from "@/components/ui/button";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ErrorMessage } from "@hookform/error-message";
 import {
   Card,
   CardContent,
@@ -23,11 +27,29 @@ const Login = () => {
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
 
+  const formSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(4).max(40),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(formSchema),
+  });
+
   useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
   }, [userInfo, navigate]);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+  };
 
   return (
     <div className="flex justify-center items-center">
@@ -40,19 +62,27 @@ const Login = () => {
           <form>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5 gap-2">
-                <Label htmlFor="name">Email</Label>
-                <Input id="name" placeholder="email" />
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  placeholder="email"
+                  {...register("email", { required: true })}
+                />
               </div>
               <div className="flex flex-col space-y-1.5 gap-2">
-                <Label htmlFor="name">Password</Label>
-                <Input id="name" placeholder="Password" />
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  placeholder="Password"
+                  {...register("password", { required: true })}
+                />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline">취소</Button>
-          <Button>로그인</Button>
+          <Button onClick={handleSubmit(onSubmit)}>로그인</Button>
         </CardFooter>
         <div>
           <Accordion type="single" collapsible className=" text-sm mx-3">
