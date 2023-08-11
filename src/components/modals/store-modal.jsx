@@ -14,13 +14,22 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import apiRequest from "../../api/apiRequest";
+import { toast } from "react-hot-toast";
+import { createStore } from "../../api/apiStore";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(20),
 });
 
 const StoreModal = () => {
+  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
   const storeModal = useStoreModal();
+  const currentUser = useSelector((state) => state.auth);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -29,8 +38,27 @@ const StoreModal = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      console.log(data);
+      return createStore(data);
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("상점 생성에 실패했습니다.");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("store");
+      toast.success("상점이 생성되었습니다.");
+      storeModal.onClose();
+    },
+  });
+
   const onSubmit = async (value) => {
-    console.log(value);
+    mutation.mutate({
+      name: value.name,
+      userId: currentUser.userInfo.userId,
+    });
   };
 
   return (

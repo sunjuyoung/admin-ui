@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorMessage } from "@hookform/error-message";
 import {
   Card,
   CardContent,
@@ -21,9 +20,14 @@ import {
 } from "@/components/ui/accordion";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import apiRequest from "../api/apiRequest";
+import { setLogin } from "../slices/authSlice";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -48,7 +52,23 @@ const Login = () => {
   }, [userInfo, navigate]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const response = await apiRequest.post("/auth/login", {
+        email: data.email,
+        password: data.password,
+      });
+      dispatch(
+        setLogin({
+          token: response.data.token,
+          userId: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        })
+      );
+      toast.success("로그인 성공");
+    } catch (error) {
+      toast.error("로그인 실패, 회원 정보를 확인해 주세요");
+    }
   };
 
   return (

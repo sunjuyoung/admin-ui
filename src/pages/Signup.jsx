@@ -3,6 +3,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorMessage } from "@hookform/error-message";
+
 import {
   Card,
   CardContent,
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import apiRequest from "../api/apiRequest";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -52,17 +54,23 @@ const Signup = () => {
       return;
     }
 
-    const response = await apiRequest.post("/auth/register", data);
+    const response = await apiRequest.post("auth/register", {
+      email: data.email,
+      username: data.username,
+      password: data.password,
+      passwordConfirm: data.passwordConfirm,
+    });
     if (response.status === 200) {
+      toast.success("회원가입이 완료되었습니다.");
       navigate("/login");
     } else {
+      toast.error("회원가입에 실패했습니다.");
       setError("email", {
         type: "manual",
         message: "이미 사용중인 이메일입니다.",
       });
     }
   };
-
   return (
     <div className="flex justify-center items-center">
       <Card className="w-[350px]">
@@ -79,6 +87,11 @@ const Signup = () => {
                   id="email"
                   placeholder="email"
                   {...register("email", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="email"
+                  render={({ message }) => <p>{message}</p>}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">

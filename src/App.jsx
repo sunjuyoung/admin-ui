@@ -6,14 +6,18 @@ import Header from "./components/Header";
 import ModalProvider from "./providers/modal-provider";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { Toaster } from "react-hot-toast";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const Layout = () => {
     return (
       <div className="app">
         <Header />
+
         <ModalProvider />
         <Outlet />
+        <Toaster />
         {/* <Footer /> */}
       </div>
     );
@@ -34,6 +38,10 @@ function App() {
         {
           path: "/signup",
           element: <Signup />,
+        },
+        {
+          path: "/:storeId",
+          element: <Dashboard />,
         },
       ],
     },

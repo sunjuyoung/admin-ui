@@ -11,7 +11,7 @@ const Home = () => {
     }
   }, [isOpen, onOpen]);
 
-  return <div className="">Home</div>;
+  return null;
 };
 
 export default Home;
