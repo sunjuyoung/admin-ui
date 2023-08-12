@@ -47,10 +47,11 @@ const StoreModal = () => {
       console.log(error);
       toast.error("상점 생성에 실패했습니다.");
     },
-    onSuccess: () => {
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries("store");
       toast.success("상점이 생성되었습니다.");
       storeModal.onClose();
+      window.location.assign(`/store/${data.data}`);
     },
   });
 

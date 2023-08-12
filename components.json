@@ -12,10 +12,5 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils"
-  },
-  "proxy": {
-    "/api": {
-      "target": "http://localhost:8080/"
-    }
   }
 }

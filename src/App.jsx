@@ -10,11 +10,20 @@ import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const Layout = () => {
+  const BasicLayout = () => {
     return (
       <div className="app">
         <Header />
-
+        <Outlet />
+        <Toaster />
+        {/* <Footer /> */}
+      </div>
+    );
+  };
+  const Layout = () => {
+    return (
+      <div className="app">
+        {/* <Header /> */}
         <ModalProvider />
         <Outlet />
         <Toaster />
@@ -31,6 +40,12 @@ function App() {
           path: "/",
           element: <Home />,
         },
+      ],
+    },
+    {
+      path: "/",
+      element: <BasicLayout />,
+      children: [
         {
           path: "/login",
           element: <Login />,
@@ -40,7 +55,7 @@ function App() {
           element: <Signup />,
         },
         {
-          path: "/:storeId",
+          path: "/store/:storeId",
           element: <Dashboard />,
         },
       ],
