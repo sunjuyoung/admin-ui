@@ -14,8 +14,6 @@ import {
   UserPlus,
   Users,
   Store as StoreIcon,
-  ChevronsUpDown,
-  Command,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -37,27 +35,39 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../slices/authSlice";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
-import {
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "cmdk";
+
+import useStoreModal from "../hooks/use-store-modal";
+import SwitchStore from "./SwitchStore";
+import { useQuery } from "@tanstack/react-query";
+import { getStoreByUserId } from "../api/apiStore";
 
 const Header = () => {
-  const [open, setOpen] = useState(true);
-  const currentUser = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+  const currentUser = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
 
+  const onOpen = useStoreModal((state) => state.onOpen);
+  const isOpen = useStoreModal((state) => state.isOpen);
+
   const dispatch = useDispatch();
+  const param = useParams();
+
+  if (!currentUser) navigate("/login");
+
+  const userId = currentUser?.userId;
+
+  const { isLoading, isError, error, data } = useQuery(
+    ["store", userId],
+    async () => {
+      if (!userId) navigate("/login");
+
+      return await getStoreByUserId(userId);
+    }
+  );
+
+  if (isLoading) return <div>로딩중...</div>;
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
@@ -69,33 +79,7 @@ const Header = () => {
     <div className="flex justify-between">
       {/*     메뉴 버튼        */}
       <div>
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              role="combobox"
-              aria-expanded={open}
-              aria-label="Select a store"
-              className="justify-between w-50"
-            >
-              <StoreIcon className="mr-2 h-4 w-4" />
-              Current Store
-              <ChevronsUpDown className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          {/* <PopoverContent className="w-56 p-0">
-            <Command>
-              <CommandList>
-                <CommandInput placeholder="Search for a store..." />
-                <CommandEmpty>No store found.</CommandEmpty>
-                <CommandGroup heading="Stores">
-                  <CommandItem>1</CommandItem>
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent> */}
-        </Popover>
+        <SwitchStore items={data?.data} />
       </div>
 
       {/*     유저 아바타        */}

@@ -14,6 +14,7 @@ function App() {
     return (
       <div className="app">
         <Header />
+        <ModalProvider />
         <Outlet />
         <Toaster />
         {/* <Footer /> */}
