@@ -7,4 +7,21 @@ const apiRequest = axios.create({
   },
 });
 
+apiRequest.interceptors.response.use(
+  (response) => {
+    console.log(response);
+    if (response.status === 401) {
+      localStorage.removeItem("userInfo");
+      // window.location.href = "/login";
+    }
+  },
+  async (error) => {
+    console.log(error);
+    if (error.response?.status === 401) {
+      localStorage.removeItem("userInfo");
+      // window.location.href = "/login";
+    }
+  }
+);
+
 export default apiRequest;
