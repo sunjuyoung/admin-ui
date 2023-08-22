@@ -33,7 +33,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../slices/authSlice";
@@ -54,7 +54,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const param = useParams();
 
-  if (!currentUser) navigate("/login");
+  useEffect(() => {
+    if (!currentUser) navigate("/login");
+  });
 
   const userId = currentUser?.userId;
 
@@ -96,22 +98,22 @@ const Header = () => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
+                <User className="w-4 h-4 mr-2" />
                 <span>Profile</span>
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCard className="mr-2 h-4 w-4" />
+                <CreditCard className="w-4 h-4 mr-2" />
                 <span>Billing</span>
                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
+                <Settings className="w-4 h-4 mr-2" />
                 <span>Settings</span>
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Keyboard className="mr-2 h-4 w-4" />
+                <Keyboard className="w-4 h-4 mr-2" />
                 <span>Keyboard shortcuts</span>
                 <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
               </DropdownMenuItem>
@@ -119,54 +121,54 @@ const Header = () => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Users className="mr-2 h-4 w-4" />
+                <Users className="w-4 h-4 mr-2" />
                 <span>Team</span>
               </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  <UserPlus className="mr-2 h-4 w-4" />
+                  <UserPlus className="w-4 h-4 mr-2" />
                   <span>Invite users</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuItem>
-                      <Mail className="mr-2 h-4 w-4" />
+                      <Mail className="w-4 h-4 mr-2" />
                       <span>Email</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <MessageSquare className="mr-2 h-4 w-4" />
+                      <MessageSquare className="w-4 h-4 mr-2" />
                       <span>Message</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <PlusCircle className="mr-2 h-4 w-4" />
+                      <PlusCircle className="w-4 h-4 mr-2" />
                       <span>More...</span>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
               <DropdownMenuItem>
-                <Plus className="mr-2 h-4 w-4" />
+                <Plus className="w-4 h-4 mr-2" />
                 <span>New Team</span>
                 <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Github className="mr-2 h-4 w-4" />
+              <Github className="w-4 h-4 mr-2" />
               <span>GitHub</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <LifeBuoy className="mr-2 h-4 w-4" />
+              <LifeBuoy className="w-4 h-4 mr-2" />
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuItem disabled>
-              <Cloud className="mr-2 h-4 w-4" />
+              <Cloud className="w-4 h-4 mr-2" />
               <span>API</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut className="mr-2 h-4 w-4" />
+              <LogOut className="w-4 h-4 mr-2" />
               <span onClick={handleLogout}>Log out</span>
               <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
             </DropdownMenuItem>

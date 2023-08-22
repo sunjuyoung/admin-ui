@@ -32,6 +32,7 @@ function App() {
       </div>
     );
   };
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -41,12 +42,6 @@ function App() {
           path: "/",
           element: <Home />,
         },
-      ],
-    },
-    {
-      path: "/",
-      element: <BasicLayout />,
-      children: [
         {
           path: "/login",
           element: <Login />,
@@ -55,6 +50,13 @@ function App() {
           path: "/signup",
           element: <Signup />,
         },
+      ],
+    },
+
+    {
+      path: "/",
+      element: <BasicLayout />,
+      children: [
         {
           path: "/store/:storeId",
           element: <Dashboard />,
