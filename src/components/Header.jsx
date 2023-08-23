@@ -22,7 +22,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const param = useParams();
 
-  if (!currentUser) navigate("/login");
+  useEffect(() => {
+    if (!currentUser) navigate("/login");
+  });
 
   const userId = currentUser?.userId;
 

@@ -59,9 +59,9 @@ const SwitchStore = ({ items }) => {
             aria-label="Select a store"
             className="justify-between w-50"
           >
-            <StoreIcon className="mr-2 h-4 w-4" />
+            <StoreIcon className="w-4 h-4 mr-2" />
             Current Store
-            <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+            <ChevronsUpDown className="w-4 h-4 ml-auto opacity-50 shrink-0" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-56 p-0">
@@ -94,7 +94,7 @@ const SwitchStore = ({ items }) => {
                     onOpen();
                   }}
                 >
-                  <PlusCircle className="mr-2 h-4 w-4" />
+                  <PlusCircle className="w-4 h-4 mr-2" />
                   Create New Store
                 </CommandItem>
               </CommandGroup>

@@ -20,6 +20,7 @@ import apiRequest from "../../api/apiRequest";
 import { toast } from "react-hot-toast";
 import { createStore } from "../../api/apiStore";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   name: z.string().min(1).max(20),
@@ -30,6 +31,7 @@ const StoreModal = () => {
   const queryClient = useQueryClient();
   const storeModal = useStoreModal();
   const currentUser = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -56,6 +58,11 @@ const StoreModal = () => {
   });
 
   const onSubmit = async (value) => {
+    if (!currentUser || !currentUser?.userInfo?.userId) {
+      storeModal.onClose();
+      toast.error("로그인이 필요합니다.");
+      navigate("/login");
+    }
     mutation.mutate({
       name: value.name,
       userId: currentUser.userInfo.userId,
