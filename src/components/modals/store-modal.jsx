@@ -44,8 +44,8 @@ const StoreModal = () => {
       return createStore(data);
     },
     onError: (error) => {
-      console.log(error);
-      toast.error("상점 생성에 실패했습니다.");
+      console.log(error.response.data);
+      toast.error(error.response.data);
     },
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries("store");

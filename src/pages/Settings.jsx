@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getStore } from "../api/apiStore";
-import { useEffect } from "react";
-import { toast } from "react-hot-toast";
+import SettingsForm from "../components/form/SettingsForm";
 
-const Dashboard = () => {
+const Settings = () => {
   const currentUser = useSelector((state) => state.auth);
   const { storeId } = useParams();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const { isLoading, isError, error, data } = useQuery(
     ["store", storeId],
@@ -23,13 +22,13 @@ const Dashboard = () => {
 
   if (isLoading) return <div>로딩중...</div>;
 
-  console.log(data);
-
-  if (!data) {
-    navigate("/");
-  }
-
-  return <div>Active Store : {data?.data.name}</div>;
+  return (
+    <div className="flex-col">
+      <div className="flex-1 space-x-2">
+        <SettingsForm data={data.data} />
+      </div>
+    </div>
+  );
 };
 
-export default Dashboard;
+export default Settings;

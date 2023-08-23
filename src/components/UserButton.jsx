@@ -35,6 +35,11 @@ import {
 
 // eslint-disable-next-line react/prop-types
 const UserButton = ({ handleLogout }) => {
+  const handleLogoutButton = (e) => {
+    e.preventDefault();
+    handleLogout();
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -120,7 +125,7 @@ const UserButton = ({ handleLogout }) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <LogOut className="mr-2 h-4 w-4" />
-            <span onClick={handleLogout}>Log out</span>
+            <span onClick={(e) => handleLogoutButton(e)}>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
