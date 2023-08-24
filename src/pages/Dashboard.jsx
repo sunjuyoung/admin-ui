@@ -23,7 +23,8 @@ const Dashboard = () => {
 
   if (isLoading) return <div>로딩중...</div>;
 
-  if (!data) {
+  if (!data || data?.length === 0) {
+    toast.error("해당 상점이 없습니다.");
     navigate("/");
   }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../slices/authSlice";
@@ -22,24 +22,18 @@ const Header = () => {
   const param = useParams();
 
   useEffect(() => {
-    if (!currentUser) navigate("/login");
+    if (!currentUser?.userId) navigate("/login");
+  }, []);
+
+  const { isLoading, error, data } = useQuery(["store"], async () => {
+    return await getStoreByUserId(currentUser?.userId);
   });
 
-  const userId = currentUser?.userId;
-
-  const { isLoading, isError, error, data } = useQuery(
-    ["store", userId],
-    async () => {
-      if (!userId) navigate("/login");
-
-      return await getStoreByUserId(userId);
-    }
-  );
-  console.log(error);
-  console.log(data?.response?.status);
   if (isLoading) return <div>로딩중...</div>;
+  console.log(error);
 
   const handleLogout = () => {
+    console.log("로그아웃");
     localStorage.removeItem("userInfo");
     dispatch(logout({}));
     navigate("/login");
@@ -54,7 +48,7 @@ const Header = () => {
 
       {/*     유저 아바타        */}
       <div>
-        <UserButton handleLogout={handleLogout()} />
+        <UserButton handleLogout={handleLogout} />
       </div>
     </div>
   );

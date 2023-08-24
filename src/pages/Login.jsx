@@ -66,13 +66,14 @@ const Login = () => {
         })
       );
       toast.success("로그인 성공");
+      navigate("/");
     } catch (error) {
       toast.error("로그인 실패, 회원 정보를 확인해 주세요");
     }
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>로그인</CardTitle>
@@ -80,7 +81,7 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <form>
-            <div className="grid w-full items-center gap-4">
+            <div className="grid items-center w-full gap-4">
               <div className="flex flex-col space-y-1.5 gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -105,7 +106,7 @@ const Login = () => {
           <Button onClick={handleSubmit(onSubmit)}>로그인</Button>
         </CardFooter>
         <div>
-          <Accordion type="single" collapsible className=" text-sm mx-3">
+          <Accordion type="single" collapsible className="mx-3 text-sm ">
             <AccordionItem value="item-1">
               <AccordionTrigger> 회원이 아직 아니신가요? </AccordionTrigger>
               <AccordionContent>
