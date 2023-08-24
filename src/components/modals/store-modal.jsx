@@ -46,8 +46,8 @@ const StoreModal = () => {
       return createStore(data);
     },
     onError: (error) => {
-      console.log(error);
-      toast.error(error);
+      console.log(error.response.data);
+      toast.error(error.response.data);
     },
     onSuccess: (data, variables, context) => {
       // queryClient.invalidateQueries("store");

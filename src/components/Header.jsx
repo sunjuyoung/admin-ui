@@ -9,6 +9,7 @@ import SwitchStore from "./SwitchStore";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreByUserId } from "../api/apiStore";
 import UserButton from "./UserButton";
+import MainNav from "./MainNav";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -29,6 +30,18 @@ const Header = () => {
     return await getStoreByUserId(currentUser?.userId);
   });
 
+  const userId = currentUser?.userId;
+
+  const { isLoading, isError, error, data } = useQuery(
+    ["store", userId],
+    async () => {
+      if (!userId) navigate("/login");
+
+      return await getStoreByUserId(userId);
+    }
+  );
+  console.log(error);
+  console.log(data?.response?.status);
   if (isLoading) return <div>로딩중...</div>;
   console.log(error);
 
@@ -40,15 +53,15 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center h-16 px-4">
       {/*     메뉴 버튼        */}
-      <div>
+      <div className="mx-4">
         <SwitchStore items={data?.data} />
       </div>
-
+      <MainNav />
       {/*     유저 아바타        */}
       <div>
-        <UserButton handleLogout={handleLogout} />
+        <UserButton handleLogout={handleLogout()} />
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 
 function App() {
   const BasicLayout = () => {
@@ -52,7 +53,6 @@ function App() {
         },
       ],
     },
-
     {
       path: "/",
       element: <BasicLayout />,
@@ -60,6 +60,10 @@ function App() {
         {
           path: "/store/:storeId",
           element: <Dashboard />,
+        },
+        {
+          path: "/store/:storeId/settings",
+          element: <Settings />,
         },
       ],
     },
