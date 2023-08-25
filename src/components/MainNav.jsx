@@ -6,6 +6,11 @@ const MainNav = () => {
 
   const routes = [
     {
+      href: `/store/${storeId}`,
+      label: "Overview",
+      active: window.location.pathname === `/store/${storeId}`,
+    },
+    {
       href: `/store/${storeId}/settings`,
       label: "Settings",
       active: window.location.pathname === `/store/${storeId}/settings`,

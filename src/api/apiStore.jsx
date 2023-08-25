@@ -62,3 +62,18 @@ export const updateStoreById = async (storeId, data) => {
     },
   });
 };
+
+/**
+ *  스토어 삭제
+ * @param {*} storeId
+ * @param {*} userId
+ */
+export const deleteStoreById = async (storeId, userId) => {
+  return await apiRequest.delete(`store/${storeId}/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("userInfo")).token
+      }`,
+    },
+  });
+};

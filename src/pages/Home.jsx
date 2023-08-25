@@ -14,9 +14,9 @@ const Home = () => {
       window.location.href = "/login";
     }
 
-    if (!isOpen) {
-      onOpen();
-    }
+    // if (!isOpen) {
+    //   onOpen();
+    // }
   }, [isOpen, onOpen, currentUser?.userInfo, onClose]);
 
   return null;
