@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../slices/authSlice";
@@ -23,8 +23,8 @@ const Header = () => {
   const param = useParams();
 
   useEffect(() => {
-    if (!currentUser) navigate("/login");
-  });
+    if (!currentUser?.userId) navigate("/login");
+  }, [currentUser?.userId, navigate]);
 
   const userId = currentUser?.userId;
 
