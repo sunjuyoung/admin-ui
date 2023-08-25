@@ -8,18 +8,16 @@ const Home = () => {
   const isOpen = useStoreModal((state) => state.isOpen);
   const onClose = useStoreModal((state) => state.onClose);
   const currentUser = useSelector((state) => state.auth);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!currentUser?.userInfo) {
-      onClose();
-      navigate("/login");
+      window.location.href = "/login";
     }
 
     if (!isOpen) {
       onOpen();
     }
-  }, [isOpen, onOpen, currentUser?.userInfo, onClose, navigate]);
+  }, [isOpen, onOpen, currentUser?.userInfo, onClose]);
 
   return null;
 };

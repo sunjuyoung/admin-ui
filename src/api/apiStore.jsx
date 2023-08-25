@@ -1,5 +1,10 @@
 import apiRequest from "./apiRequest";
 
+// const headers = {
+//   "Content-Type": "application/json",
+//   Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo")).token}`,
+// };
+
 /**
  * 스토어 생성
  * @param {*} data
@@ -35,6 +40,21 @@ export const getStore = async (userId, storeId) => {
  */
 export const getStoreByUserId = async (userId) => {
   return await apiRequest.get(`store/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("userInfo")).token
+      }`,
+    },
+  });
+};
+
+/**
+ * 스토어 정보 업데이트
+ * @param {*} storeId
+ * @param {*} data
+ */
+export const updateStoreById = async (storeId, data) => {
+  return await apiRequest.patch(`store/${storeId}`, data, {
     headers: {
       Authorization: `Bearer ${
         JSON.parse(localStorage.getItem("userInfo")).token

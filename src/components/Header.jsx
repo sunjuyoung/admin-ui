@@ -34,7 +34,6 @@ const Header = () => {
   console.log(error);
 
   const handleLogout = () => {
-    console.log("로그아웃");
     localStorage.removeItem("userInfo");
     dispatch(logout({}));
     navigate("/login");
@@ -48,8 +47,8 @@ const Header = () => {
       </div>
       <MainNav />
       {/*     유저 아바타        */}
-      <div>
-        <UserButton handleLogout={handleLogout()} />
+      <div className="ml-auto flex items-center">
+        <UserButton handleLogout={handleLogout} />
       </div>
     </div>
   );
