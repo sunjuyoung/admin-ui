@@ -10,7 +10,7 @@ const apiRequest = axios.create({
 apiRequest.interceptors.response.use(
   (response) => {
     console.log(response);
-    if (response.status === 401) {
+    if (response?.status === 401) {
       localStorage.removeItem("userInfo");
     }
     return response;

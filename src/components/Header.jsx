@@ -24,38 +24,32 @@ const Header = () => {
 
   useEffect(() => {
     if (!currentUser?.userId) navigate("/login");
-  }, [currentUser?.userId, navigate]);
+  }, [currentUser?.userId]);
 
-  const userId = currentUser?.userId;
-
-  const { isLoading, isError, error, data } = useQuery(
-    ["store", userId],
-    async () => {
-      if (!userId) navigate("/login");
-
-      return await getStoreByUserId(userId);
-    }
-  );
+  const { isLoading, error, data } = useQuery(["store"], async () => {
+    return await getStoreByUserId(currentUser?.userId);
+  });
 
   if (isLoading) return <div>로딩중...</div>;
   console.log(error);
 
   const handleLogout = () => {
+    console.log("로그아웃");
     localStorage.removeItem("userInfo");
     dispatch(logout({}));
     navigate("/login");
   };
 
   return (
-    <div className="flex h-16 items-center px-4">
+    <div className="flex items-center h-16 px-4">
       {/*     메뉴 버튼        */}
       <div className="mx-4">
         <SwitchStore items={data?.data} />
       </div>
       <MainNav />
       {/*     유저 아바타        */}
-      <div className="ml-auto flex items-center space-x-4">
-        <UserButton handleLogout={handleLogout} />
+      <div>
+        <UserButton handleLogout={handleLogout()} />
       </div>
     </div>
   );

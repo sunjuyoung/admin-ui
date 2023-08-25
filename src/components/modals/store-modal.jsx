@@ -19,7 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../api/apiRequest";
 import { toast } from "react-hot-toast";
 import { createStore } from "../../api/apiStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
@@ -50,14 +50,15 @@ const StoreModal = () => {
       toast.error(error.response.data);
     },
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries("store");
+      // queryClient.invalidateQueries("store");
       toast.success("상점이 생성되었습니다.");
       storeModal.onClose();
-      window.location.assign(`/store/${data.data}`);
+      navigate(`/store/${data.data}`);
+      // window.location.assign(`/store/${data.data}`);
     },
   });
 
-  const onSubmit = async (value) => {
+  const onSubmit = (value) => {
     if (!currentUser || !currentUser?.userInfo?.userId) {
       storeModal.onClose();
       toast.error("로그인이 필요합니다.");
