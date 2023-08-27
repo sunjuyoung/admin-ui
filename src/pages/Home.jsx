@@ -10,13 +10,13 @@ const Home = () => {
 
   useEffect(() => {
     if (!currentUser?.userInfo) {
-      window.location.assign("/login");
+      window.location.href = "/login";
     }
 
-    if (!isOpen) {
-      onOpen();
-    }
-  }, [isOpen, onOpen, currentUser?.userInfo]);
+    // if (!isOpen) {
+    //   onOpen();
+    // }
+  }, [isOpen, onOpen, currentUser?.userInfo, onClose]);
 
   return null;
 };

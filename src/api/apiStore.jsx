@@ -1,5 +1,10 @@
 import apiRequest from "./apiRequest";
 
+// const headers = {
+//   "Content-Type": "application/json",
+//   Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo")).token}`,
+// };
+
 /**
  * 스토어 생성
  * @param {*} data
@@ -43,8 +48,28 @@ export const getStoreByUserId = async (userId) => {
   });
 };
 
-export const updateStoreById = async (storeId) => {
-  return await apiRequest.patch(`store/${storeId}`, {
+/**
+ * 스토어 정보 업데이트
+ * @param {*} storeId
+ * @param {*} data
+ */
+export const updateStoreById = async (storeId, data) => {
+  return await apiRequest.patch(`store/${storeId}`, data, {
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("userInfo")).token
+      }`,
+    },
+  });
+};
+
+/**
+ *  스토어 삭제
+ * @param {*} storeId
+ * @param {*} userId
+ */
+export const deleteStoreById = async (storeId, userId) => {
+  return await apiRequest.delete(`store/${storeId}/${userId}`, {
     headers: {
       Authorization: `Bearer ${
         JSON.parse(localStorage.getItem("userInfo")).token

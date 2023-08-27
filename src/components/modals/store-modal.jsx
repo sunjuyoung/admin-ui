@@ -54,8 +54,8 @@ const StoreModal = () => {
       }
     },
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries("store");
       storeModal.onClose();
+      queryClient.invalidateQueries("store");
       toast.success("상점이 생성되었습니다.");
       window.location.assign(`/store/${data.data}`);
     },
