@@ -22,6 +22,7 @@ const MainNav = () => {
             route.active ? "text-gray-900 font-bold" : "text-gray-500"
           }`}
         >
+          
           {route.label}
         </Link>
       ))}

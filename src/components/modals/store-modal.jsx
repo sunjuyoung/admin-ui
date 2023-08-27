@@ -47,14 +47,17 @@ const StoreModal = () => {
     },
     onError: (error) => {
       console.log(error.response.data);
+      storeModal.onClose();
       toast.error(error.response.data);
+      if (error?.response?.status === 401) {
+        navigate("/login");
+      }
     },
     onSuccess: (data, variables, context) => {
-      // queryClient.invalidateQueries("store");
-      toast.success("상점이 생성되었습니다.");
+      queryClient.invalidateQueries("store");
       storeModal.onClose();
-      navigate(`/store/${data.data}`);
-      // window.location.assign(`/store/${data.data}`);
+      toast.success("상점이 생성되었습니다.");
+      window.location.assign(`/store/${data.data}`);
     },
   });
 

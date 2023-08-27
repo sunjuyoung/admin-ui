@@ -42,3 +42,13 @@ export const getStoreByUserId = async (userId) => {
     },
   });
 };
+
+export const updateStoreById = async (storeId) => {
+  return await apiRequest.patch(`store/${storeId}`, {
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("userInfo")).token
+      }`,
+    },
+  });
+};

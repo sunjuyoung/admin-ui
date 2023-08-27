@@ -125,7 +125,7 @@ const UserButton = ({ handleLogout }) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <LogOut className="w-4 h-4 mr-2" />
-            <span onClick={(e) => handleLogout(e)}>Log out</span>
+            <span onClick={(e) => handleLogoutButton(e)}>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>

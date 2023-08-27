@@ -23,7 +23,7 @@ const Settings = () => {
   if (isLoading) return <div>로딩중...</div>;
 
   return (
-    <div className="flex-col">
+    <div className="flex-col px-4">
       <div className="flex-1 space-x-2">
         <SettingsForm data={data.data} />
       </div>

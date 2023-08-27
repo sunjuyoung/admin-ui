@@ -37,16 +37,21 @@ const SettingsForm = ({ data }) => {
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store" />
 
-        <Button variant="destructive" size="sm" onClick={() => {}}>
-          <Trash className="h-4 w-4" />
+        <Button
+          disabled={loading}
+          variant="destructive"
+          size="sm"
+          onClick={() => setOpen(true)}
+        >
+          <Trash className="w-4 h-4" />
         </Button>
       </div>
 
       <Separator />
-      <form className="space-y-8 w-full">
+      <form className="w-full space-y-8">
         <div className="grid grid-cols-3 gap-8">
-          <div className="grid gap-8">
-            <div>
+          <div className="grid gap-2">
+            <div className="mt-4 ">
               <Label htmlFor="name">스토어 이름</Label>
             </div>
             <div>
@@ -62,7 +67,7 @@ const SettingsForm = ({ data }) => {
               />
             </div>
             <div>
-              <Button className="ml-auto" onClick={handleSubmit(onSubmit)}>
+              <Button className="mt-2 ml-auto" onClick={handleSubmit(onSubmit)}>
                 수정
               </Button>
             </div>
